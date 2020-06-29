@@ -40,11 +40,8 @@ function public.remove(id)
     if buttons[id] then
         buttons[id] = nil
     else
-        if type(id) ~= "string" then
-            error("bad argument #1: expected string, got " .. type(id))
-        else
-            error("ID does not exist!")
-        end
+        expect(1, "string", id)
+        error("ID does not exist!")
     end
 end
 
@@ -52,7 +49,6 @@ function public.checkEvents(e)
     if e[1] == "mouse_click" then
         local m, x, y = e[2], e[3], e[4]
         for i, v in pairs(buttons) do
-            print("l")
             if m == v.m and x >= v.x and x <= v.x + v.w - 1 and y >= v.y and y <= v.y + v.h - 1 then
                 print(x, y)
                 v.f()
